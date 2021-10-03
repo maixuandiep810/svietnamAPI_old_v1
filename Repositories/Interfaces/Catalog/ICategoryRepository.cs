@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using svietnamAPI.Dtos.Catalog;
+using svietnamAPI.Entities.Catalog;
 
 namespace svietnamAPI.Repositories.Interfaces.Catalog
 {
     public interface ICategoryRepository : IGenericRepository
     {
-        Task<IEnumerable<CategoryDto>> GetCategoriesAsync();
+        Task<IEnumerable<CategoryEntity>> GetCategoriesAsync();
     }
 }

@@ -3,6 +3,7 @@ using svietnamAPI.Repositories.Interfaces.Catalog;
 using System.Threading.Tasks;
 using System.Collections.Generic;
 using svietnamAPI.Dtos.Catalog;
+using AutoMapper;
 
 namespace svietnamAPI.Services.Implements.Catalog
 {
@@ -10,14 +11,18 @@ namespace svietnamAPI.Services.Implements.Catalog
     {
         private readonly ICategoryRepository _categoryRepo;
 
-        public CategoryService(ICategoryRepository categoryRepo)
+        public CategoryService(
+            IMapper mapper, 
+            ICategoryRepository categoryRepo) 
+            : base (mapper)
         {
             _categoryRepo = categoryRepo;
         }
 
         public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync() {
-            var categories = await _categoryRepo.GetCategoriesAsync();
-            return categories;
+            var categoryEntities = await _categoryRepo.GetCategoriesAsync();
+            var categoryDtos = _mapper.Map<IEnumerable<CategoryDto>>(categoryEntities);
+            return categoryDtos;
         }
     }
 }

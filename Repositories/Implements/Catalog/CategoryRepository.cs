@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using svietnamAPI.Infastructure.Data;
 using svietnamAPI.Repositories.Interfaces.Catalog;
-using svietnamAPI.Dtos.Catalog;
+using svietnamAPI.Entities.Catalog;
 
 namespace svietnamAPI.Repositories.Implements.Catalog
 {
@@ -15,10 +15,10 @@ namespace svietnamAPI.Repositories.Implements.Catalog
         {   
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
+        public async Task<IEnumerable<CategoryEntity>> GetCategoriesAsync()
         {
             var query = "SELECT * FROM Category";
-            var categories = await GetEntitiesAsync<CategoryDto>(query, null);
+            var categories = await GetEntitiesAsync<CategoryEntity>(query, null);
             return categories;
         }
     }

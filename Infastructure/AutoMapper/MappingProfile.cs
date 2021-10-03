@@ -1,4 +1,6 @@
 using AutoMapper;
+using svietnamAPI.Entities.Catalog;
+using svietnamAPI.Dtos.Catalog;
 
 namespace svietnamAPI.Infastructure.AutoMapper
 {
@@ -12,7 +14,8 @@ namespace svietnamAPI.Infastructure.AutoMapper
             // CreateMap<UserViewModel, User>();
             // CreateMap<RegisterUserDto, PasswordDto, UserDto>();
 
-            // CreateMap<UserDto, UserApiDto>();
+            CreateMap<CategoryEntity, CategoryDto>()
+                .ForMember(d => d.Images, opt => opt.Ignore());
         }
     }
 }
