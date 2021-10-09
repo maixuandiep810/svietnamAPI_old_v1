@@ -1,7 +1,7 @@
-using svietnamAPI.Repositories.Interfaces.Image;
+using svietnamAPI.Repositories.Interfaces.StaticFile;
 using svietnamAPI.Infastructure.Data;
 
-namespace svietnamAPI.Repositories.Implements.Image
+namespace svietnamAPI.Repositories.Implements.StaticFile
 {
     public class ImageRepository : GenericRepository, IImageRepository
     {

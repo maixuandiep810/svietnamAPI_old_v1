@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using svietnamAPI.Dtos.Image;
+using svietnamAPI.Dtos.StaticFile;
 
 namespace svietnamAPI.Dtos.Catalog
 {
@@ -7,9 +7,9 @@ namespace svietnamAPI.Dtos.Catalog
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }
-        public bool IsEnabled { get; set; }
         public string Description { get; set; }
-
-        public List<ImageDto> Images { get; set; } = new List<ImageDto>();
+        public bool IsEnabled { get; set; }
+        public ImageDto BaseImage { get; set; }
+        public ImageDto ThumbnailImage { get; set; }
     }
 }

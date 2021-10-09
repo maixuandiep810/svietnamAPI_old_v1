@@ -9,7 +9,7 @@ namespace svietnamAPI.StartupConfiguration.ServiceCollectionExtensions
     {
         public static void AddRepositoryServices(this IServiceCollection services)
         {
-            services.AddTransient<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<ICategoryRepository, CategoryRepository>();
         }
     }
 }

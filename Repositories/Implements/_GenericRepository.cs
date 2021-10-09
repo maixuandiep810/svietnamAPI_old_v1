@@ -9,7 +9,7 @@ namespace svietnamAPI.Repositories.Implements
 {
     public abstract class GenericRepository : IGenericRepository
     {
-        private readonly IDataConnectionFactory _dataConnectionFactory;
+        protected readonly IDataConnectionFactory _dataConnectionFactory;
 
         public GenericRepository(IDataConnectionFactory dataConnectionFactory)
         {

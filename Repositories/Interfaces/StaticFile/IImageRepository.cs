@@ -1,4 +1,4 @@
-namespace svietnamAPI.Repositories.Interfaces.Image
+namespace svietnamAPI.Repositories.Interfaces.StaticFile
 {
     public interface IImageRepository : IGenericRepository
     {

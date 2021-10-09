@@ -1,6 +1,8 @@
 using AutoMapper;
 using svietnamAPI.Entities.Catalog;
 using svietnamAPI.Dtos.Catalog;
+using svietnamAPI.Entities.StaticFile;
+using svietnamAPI.Dtos.StaticFile;
 
 namespace svietnamAPI.Infastructure.AutoMapper
 {
@@ -8,14 +10,16 @@ namespace svietnamAPI.Infastructure.AutoMapper
     {
         public MappingProfile()
         {
-            // VD
-            // // Thuộc tính FullName trong UserViewModel được kết hợp từ FirstName và LastName trong User
-            // CreateMap<User, UserViewModel>().ForMember(d => d.FullName, o => o.MapFrom(s => $"{s.FirstName}   {s.LastName}"));
-            // CreateMap<UserViewModel, User>();
-            // CreateMap<RegisterUserDto, PasswordDto, UserDto>();
-
             CreateMap<CategoryEntity, CategoryDto>()
-                .ForMember(d => d.Images, opt => opt.Ignore());
+                .ForMember(d => d.BaseImage, opt => opt.Ignore())
+                .ForMember(d => d.ThumbnailImage, opt => opt.Ignore());
+
+            CreateMap<JoinEntity_Category_Image, JoinDto_Category_Image>()
+                .ForMember(d => d.Category, o => o.MapFrom(s => s.Category))
+                .ForPath(d => d.Category.BaseImage, o => o.MapFrom(s => s.BaseImage))
+                .ForPath(d => d.Category.ThumbnailImage, o => o.MapFrom(s => s.ThumbnailImage));
+
+            CreateMap<ImageEntity, ImageDto>();
         }
     }
 }
