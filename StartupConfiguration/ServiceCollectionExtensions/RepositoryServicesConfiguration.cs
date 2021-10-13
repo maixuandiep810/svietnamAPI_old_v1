@@ -1,6 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
-using svietnamAPI.Repositories.Implements.Catalog;
-using svietnamAPI.Repositories.Interfaces.Catalog;
+using svietnamAPI.Repositories.Implements;
+using svietnamAPI.Repositories.Interfaces;
 
 
 namespace svietnamAPI.StartupConfiguration.ServiceCollectionExtensions
@@ -9,7 +9,7 @@ namespace svietnamAPI.StartupConfiguration.ServiceCollectionExtensions
     {
         public static void AddRepositoryServices(this IServiceCollection services)
         {
-            services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
         }
     }
 }

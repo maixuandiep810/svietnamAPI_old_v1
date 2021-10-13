@@ -5,42 +5,30 @@ using System.Collections.Generic;
 using svietnamAPI.Dtos.Catalog;
 using AutoMapper;
 using System.Linq;
+using svietnamAPI.Repositories;
+using svietnamAPI.Repositories.Interfaces;
 
 namespace svietnamAPI.Services.Implements.Catalog
 {
     public partial class CategoryService : BaseService, ICategoryService
     {
-        private readonly ICategoryRepository _categoryRepo;
-
         public CategoryService(
-            IMapper mapper,
-            ICategoryRepository categoryRepo)
-            : base(mapper)
+            IMapper mapper, IRepositoryWrapper repositoryWrapper
+            )
+            : base(mapper, repositoryWrapper)
         {
-            _categoryRepo = categoryRepo;
         }
 
         public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
         {
-            var categoryEntities = await _categoryRepo.GetCategoriesAsync();
-            var categoryDtos = _mapper.Map<IEnumerable<CategoryDto>>(categoryEntities);
-            return categoryDtos;
+            var categories = await _repositoryWrapper.CategoryRepo.GetCategoriesAsync();
+            return categories;
         }
 
         public async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async()
         {
-            var joinEntities = await _categoryRepo.GetCategories_Image_Async();
-            var joinDtos = _mapper.Map<IEnumerable<JoinDto_Category_Image>>(joinEntities);
-            var categories = joinDtos.Select(p => p.Category);
+            var categories = await _repositoryWrapper.CategoryRepo.GetCategories_Image_Async();
             return categories;
-        }
-
-        public async Task<CategoryDto> GetCategoryById_Image_Async(int categoryId)
-        {
-            var joinEntity = await _categoryRepo.GetCategoryById_Image_Async(categoryId);
-            var joinDto = _mapper.Map<JoinDto_Category_Image>(joinEntity);
-            var category = joinDto.Category;
-            return category;
         }
 
     }

@@ -31,11 +31,11 @@ namespace svietnamAPI
 
             services.AddControllers();
 
+            services.Configure<ServerSetting>(Configuration.GetSection("ServerSetting"));
+
             services.AddInfastructureServices();
             services.AddRepositoryServices();
             services.AddBusinessServices();
-
-            services.Configure<ServerSetting>(Configuration.GetSection("ServerSetting"));
 
             services.AddSwaggerServices();
         }

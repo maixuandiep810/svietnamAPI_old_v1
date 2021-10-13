@@ -1,7 +1,9 @@
+using System;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.Extensions.Configuration;
+using System.IO;
 using Microsoft.Extensions.Options;
+using svietnamAPI.Dtos.ValueDtos;
 using svietnamAPI.StartupConfiguration.AppSetting;
 
 namespace svietnamAPI.Infastructure.Data
@@ -9,19 +11,55 @@ namespace svietnamAPI.Infastructure.Data
     public class DataConnectionFactory : IDataConnectionFactory
     {
         private readonly ServerSetting _serverSetting;
-        private readonly string _DbConnectionString;
+        private readonly string _dbConnectionString;
+        private readonly StaticFileInfo _staticFileInfo;
 
         public DataConnectionFactory(IOptions<ServerSetting> serverSetting)
         {
             _serverSetting = serverSetting.Value;
-            _DbConnectionString = _serverSetting.DataConnection.DbConnectionString;
+            _dbConnectionString = _serverSetting.DataConnection.DbConnectionString;
+            _staticFileInfo = _serverSetting.StaticFileInfo;
+            CreateStaticFilesFolder();
         }
 
-        public IDbConnection CreateDbConnection()
+        public SqlConnection CreateSqlDbConnection()
         {
-            IDbConnection connection = new SqlConnection(_DbConnectionString);
+            SqlConnection connection = new SqlConnection(_dbConnectionString);
             return connection;
+        }
+
+        public (Stream stream, string location, string url) CreateWriteStaticFileStream(StaticFileFolderType folderType, string filename)
+        {
+            string folderLocation= "";
+            Uri folderUrl = null;
+            switch (folderType)
+            {
+                case StaticFileFolderType.CategoryImage:
+                    folderLocation = _staticFileInfo.CategoryImageLocation;
+                    folderUrl = new Uri(_staticFileInfo.CategoryImageUrl);
+                    break;
+                default:
+                    break;
+            }
+            var fileLocation = Path.Combine(folderLocation, filename);
+            var fileUrl = new Uri(folderUrl, filename);
+            Stream fileStream = new FileStream(fileLocation, FileMode.Create);
+            var result = (stream: fileStream, location: fileLocation, url: fileUrl.ToString());
+            return result;
+        }
+
+        private void CreateStaticFilesFolder()
+        {
+            CreateRelativeFolder(_staticFileInfo.BaseLocation);
+            CreateRelativeFolder(_staticFileInfo.CategoryImageLocation);
+        }
+
+        private void CreateRelativeFolder(string relativePath)
+        {
+            if (!Directory.Exists(relativePath))
+            {
+                Directory.CreateDirectory(relativePath);
+            }
         }
     }
 }
-

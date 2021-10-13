@@ -3,9 +3,9 @@ using svietnamAPI.Infastructure.Data;
 
 namespace svietnamAPI.Repositories.Implements.StaticFile
 {
-    public class ImageRepository : GenericRepository, IImageRepository
+    public class ImageDbRepository : GenericDbRepository, IImageDbRepository
     {
-        public ImageRepository(IDataConnectionFactory dataConnectionFactory)
+        public ImageDbRepository(IDataConnectionFactory dataConnectionFactory)
         : base(dataConnectionFactory)
         {
 
