@@ -19,7 +19,6 @@ namespace svietnamAPI.Infastructure.Data
             _serverSetting = serverSetting.Value;
             _dbConnectionString = _serverSetting.DataConnection.DbConnectionString;
             _staticFileInfo = _serverSetting.StaticFileInfo;
-            CreateStaticFilesFolder();
         }
 
         public SqlConnection CreateSqlDbConnection()
@@ -28,13 +27,13 @@ namespace svietnamAPI.Infastructure.Data
             return connection;
         }
 
-        public (Stream stream, string location, string url) CreateWriteStaticFileStream(StaticFileFolderType folderType, string filename)
+        public (Stream stream, string location, string url) CreateWriteAppFileStream(int folderType, string filename)
         {
-            string folderLocation= "";
+            string folderLocation = "";
             Uri folderUrl = null;
             switch (folderType)
             {
-                case StaticFileFolderType.CategoryImage:
+                case PhysicalFolderType.CategoryImage:
                     folderLocation = _staticFileInfo.CategoryImageLocation;
                     folderUrl = new Uri(_staticFileInfo.CategoryImageUrl);
                     break;
@@ -48,13 +47,18 @@ namespace svietnamAPI.Infastructure.Data
             return result;
         }
 
-        private void CreateStaticFilesFolder()
+        public void PrepareSqlDatabase()
         {
-            CreateRelativeFolder(_staticFileInfo.BaseLocation);
-            CreateRelativeFolder(_staticFileInfo.CategoryImageLocation);
+
         }
 
-        private void CreateRelativeFolder(string relativePath)
+        public void PrepareStaticFilesFolder()
+        {
+            CreateRelativeFolderIfNotExits(_staticFileInfo.BaseLocation);
+            CreateRelativeFolderIfNotExits(_staticFileInfo.CategoryImageLocation);
+        }
+
+        private void CreateRelativeFolderIfNotExits(string relativePath)
         {
             if (!Directory.Exists(relativePath))
             {

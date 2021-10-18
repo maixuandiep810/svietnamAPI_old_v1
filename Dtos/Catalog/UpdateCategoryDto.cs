@@ -3,7 +3,7 @@ using svietnamAPI.Dtos.AppFile;
 
 namespace svietnamAPI.Dtos.Catalog
 {
-    public class CategoryDto
+    public class UpdateCategoryDto
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }
@@ -11,8 +11,5 @@ namespace svietnamAPI.Dtos.Catalog
         public bool IsEnabled { get; set; }
         public int BaseImageId { get; set; }
         public int ThumbnailImageId { get; set; }
-
-        public AppFileDto BaseImage { get; set; }
-        public AppFileDto ThumbnailImage { get; set; }
     }
 }

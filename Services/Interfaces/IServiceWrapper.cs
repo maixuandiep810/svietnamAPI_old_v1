@@ -1,10 +1,17 @@
+using System;
+using System.Threading.Tasks;
 using svietnamAPI.Repositories.Interfaces;
 using svietnamAPI.Services.Interfaces;
+using svietnamAPI.Services.Interfaces.AppFile;
+using svietnamAPI.Services.Interfaces.Catalog;
 
 namespace svietnamAPI.Services.Interfaces
 {
-    public class IServiceWrapper
+    public interface IServiceWrapper
     {
-        IRepositoryWrapper RepositoryWrapper { get; }
+        ICategoryService CategoryService { get; }
+        IAppFileService AppFileService { get; }
+
+
     }
 }

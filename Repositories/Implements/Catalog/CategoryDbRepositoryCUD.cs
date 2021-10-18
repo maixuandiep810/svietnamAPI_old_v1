@@ -10,6 +10,10 @@ namespace svietnamAPI.Repositories.Implements.Catalog
 {
     public partial class CategoryDbRepository
     {
+        public async Task UpdateCategoyAsync(UpdateCategoryDto updateCategory)
+        {
+            await UpdateEntityAsync(CategoryQuery.UpdateCategory, updateCategory);
+        }
 
     }
 }

@@ -11,41 +11,39 @@ namespace svietnamAPI.Repositories.Implements
     public abstract partial class GenericDbRepository
     {
         /// <summary>
-        /// Get records or null
+        /// Save -Entity- to Database 
         /// </summary>
         /// <param name="query"></param>
         /// <param name="queryParams"></param>
-        /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public async Task<IEnumerable<TEntity>> GetEntitiesAsync<TEntity>(string query, object queryParams)
+        public async Task<int> CreateEntityAsync(string query, object queryParams)
         {
-            var entities = await WithConnection<IEnumerable<TEntity>>(
+            var insertedId = await WithConnection<int>(
                 async dbConnection =>
                 {
-                    var records = await dbConnection.QueryAsync<TEntity>(query, queryParams);
-                    return records;
-                }
-            );
-            return entities;
-        }
-        
-        /// <summary>
-        /// Get first record or default value
-        /// </summary>
-        /// <param name="query"></param>
-        /// <param name="queryParams"></param>
-        /// <typeparam name="TEntity"></typeparam>
-        /// <returns></returns>
-        public async Task<TEntity> GetEntityAsync<TEntity>(string query, object queryParams)
-        {
-            var entity = await WithConnection<TEntity>(
-                async dbConnection =>
-                {
-                    var record = await dbConnection.QueryFirstOrDefaultAsync<TEntity>(query, queryParams);
+                    var record = await dbConnection.QuerySingleOrDefaultAsync<int>(query, queryParams);
                     return record;
                 }
             );
-            return entity;
+            return insertedId;
         }
+
+        /// <summary>
+        /// Update -entity- to Database
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="queryParams"></param>
+        /// <returns></returns>
+        public async Task UpdateEntityAsync(string query, object queryParams)
+        {
+            await WithConnection(
+                async dbConnection =>
+                {
+                    await dbConnection.ExecuteReaderAsync(query, queryParams);
+                }
+            );
+        }
+
+
     }
 }

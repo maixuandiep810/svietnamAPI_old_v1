@@ -8,11 +8,14 @@ namespace svietnamAPI.Services.Implements
     {
         protected readonly IMapper _mapper;
         protected readonly IRepositoryWrapper _repositoryWrapper;
+        protected readonly IServiceWrapper _serviceWrapper;
 
-        public BaseService(IMapper mapper, IRepositoryWrapper repositoryWrapper)
+
+        public BaseService(IMapper mapper, IRepositoryWrapper repositoryWrapper, IServiceWrapper serviceWrapper)
         {
             _mapper = mapper;
             _repositoryWrapper = repositoryWrapper;
+            _serviceWrapper = serviceWrapper;
         }
     }
 }

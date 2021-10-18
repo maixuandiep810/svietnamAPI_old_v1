@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
 using svietnamAPI.StartupConfiguration.ServiceCollectionExtensions;
 using svietnamAPI.StartupConfiguration.AppSetting;
+using svietnamAPI.StartupConfiguration.ApplicationBuilderExtensions;
 
 namespace svietnamAPI
 {
@@ -43,6 +44,8 @@ namespace svietnamAPI
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.PrepareInfrastuctureServices();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -54,7 +57,7 @@ namespace svietnamAPI
 
             app.UseRouting();
 
-            app.UseAuthorization();
+            app.UseAppStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

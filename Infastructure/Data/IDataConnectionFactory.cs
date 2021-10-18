@@ -7,7 +7,11 @@ namespace svietnamAPI.Infastructure.Data
 {
     public interface IDataConnectionFactory
     {
+        void PrepareSqlDatabase();
+        void PrepareStaticFilesFolder();
+
         SqlConnection CreateSqlDbConnection();
-        (Stream stream, string location, string url) CreateWriteStaticFileStream(StaticFileFolderType folderType, string filename);
+        (Stream stream, string location, string url) CreateWriteAppFileStream(int folderType, string filename);
+    
     }
 }

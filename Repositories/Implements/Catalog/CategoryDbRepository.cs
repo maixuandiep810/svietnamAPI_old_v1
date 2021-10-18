@@ -1,12 +1,12 @@
-using System.Net.Mime;
 using System.Collections.Generic;
 using Dapper;
-using System.Linq;
 using System.Threading.Tasks;
 using svietnamAPI.Infastructure.Data;
 using svietnamAPI.Repositories.Interfaces.Catalog;
 using svietnamAPI.Dtos.Catalog;
-using svietnamAPI.Dtos.StaticFile;
+using svietnamAPI.Dtos.AppFile;
+using svietnamAPI.Dtos.ValueDtos;
+using System.Linq;
 
 namespace svietnamAPI.Repositories.Implements.Catalog
 {
@@ -25,8 +25,34 @@ namespace svietnamAPI.Repositories.Implements.Catalog
 
         public async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async()
         {
-            var categories = await GetCategories_Image_Async(CategoryQuery.GetCategories_Image, null);
+            var queryParams = new
+            {
+                BaseImageType = AppFileType.Image,
+                ThumbnailImageType = AppFileType.Image
+            };
+            var categories = await GetCategories_Image_Async(CategoryQuery.GetCategories_Image, queryParams);
             return categories;
+        }
+
+        public async Task<CategoryDto> GetCategoryByIdAsync(int categoryId)
+        {
+            var category = await GetEntityAsync<CategoryDto>(CategoryQuery.GetCategoryById, new { CategoryId = categoryId });
+            return category;
+        }
+
+        public async Task<CategoryDto> GetCategoryById_Image_Async(int categoryId)
+        {
+            var queryParams = new
+            {
+                CategoryId = categoryId,
+                BaseImageType = AppFileType.Image,
+                ThumbnailImageType = AppFileType.Image
+            };
+            var categories = await GetCategories_Image_Async(CategoryQuery.GetCategoryById_Image, queryParams);
+            if (categories == null)
+                return null;
+            var category = categories.FirstOrDefault();
+            return category;
         }
 
         private async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async(string query, object queryParams)
@@ -34,7 +60,7 @@ namespace svietnamAPI.Repositories.Implements.Catalog
             var categories = await WithConnection<IEnumerable<CategoryDto>>(
                 async dbConnection =>
                 {
-                    var records = await dbConnection.QueryAsync<CategoryDto, ImageDto, ImageDto, CategoryDto>(
+                    var records = await dbConnection.QueryAsync<CategoryDto, AppFileDto, AppFileDto, CategoryDto>(
                         query,
                         (category, baseImage, thumbnailImage) =>
                         {
@@ -43,7 +69,7 @@ namespace svietnamAPI.Repositories.Implements.Catalog
                             return category;
                         },
                         queryParams,
-                        splitOn: "ImageId, ImageId"
+                        splitOn: "AppFileId, AppFileId"
                     );
                     return records;
                 }

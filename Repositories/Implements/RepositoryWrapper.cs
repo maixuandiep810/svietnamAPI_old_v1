@@ -1,7 +1,11 @@
 using svietnamAPI.Infastructure.Data;
+using svietnamAPI.Repositories.Implements.AppFile;
 using svietnamAPI.Repositories.Implements.Catalog;
+using svietnamAPI.Repositories.Implements.PhysicalFile;
 using svietnamAPI.Repositories.Interfaces;
+using svietnamAPI.Repositories.Interfaces.AppFile;
 using svietnamAPI.Repositories.Interfaces.Catalog;
+using svietnamAPI.Repositories.Interfaces.PhysicalFile;
 
 namespace svietnamAPI.Repositories.Implements
 {
@@ -13,17 +17,41 @@ namespace svietnamAPI.Repositories.Implements
             _dataConnectionFactory = dataConnectionFactory;
         }
 
-        private ICategoryDbRepository _categoryRepo;
+        private ICategoryDbRepository _categoryDbRepo;
+        private IPhysicalFileRepository _physicalFileRepo;
+        private IAppFileDbRepository _appFileDbRepo;
 
-        public ICategoryDbRepository CategoryRepo
+        public ICategoryDbRepository CategoryDbRepo
         {
             get
             {
-                if (this._categoryRepo == null)
+                if (this._categoryDbRepo == null)
                 {
-                    this._categoryRepo = new CategoryDbRepository(_dataConnectionFactory);
+                    this._categoryDbRepo = new CategoryDbRepository(_dataConnectionFactory);
                 }
-                return this._categoryRepo;
+                return this._categoryDbRepo;
+            }
+        }
+        public IPhysicalFileRepository PhysicalFileRepo
+        {
+            get
+            {
+                if (this._physicalFileRepo == null)
+                {
+                    this._physicalFileRepo = new PhysicalFileRepository(_dataConnectionFactory);
+                }
+                return this._physicalFileRepo;
+            }
+        }
+        public IAppFileDbRepository AppFileDbRepo
+        {
+            get
+            {
+                if (this._appFileDbRepo == null)
+                {
+                    this._appFileDbRepo = new AppFileDbRepository(_dataConnectionFactory);
+                }
+                return this._appFileDbRepo;
             }
         }
     }

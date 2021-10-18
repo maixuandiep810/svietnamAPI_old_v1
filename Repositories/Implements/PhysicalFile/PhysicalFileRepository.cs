@@ -24,13 +24,14 @@ namespace svietnamAPI.Repositories.Implements.PhysicalFile
         }
 
 
-        public async Task WriteStaticFileAsync(StaticFileFolderType folderType, Stream sourceFileStream, string fileExtension, string filename)
+        public async Task<(string filename, string location, string url)> WriteAppFileAsync(int folderType, Stream sourceFileStream, string fileExtension, string filename)
         {
-            filename = $"{GuidHepler.GenerateGuid()}-{folderType.ToString()}--{filename}";
+            filename = $"{GuidHepler.GenerateGuid()}--{filename}";
             filename = RegexHelper.StandardizeFilename(filename);
-            filename = $"{filename}.{fileExtension}";
-            var destFileInfo = _dataConnectionFactory.CreateWriteStaticFileStream(StaticFileFolderType.CategoryImage, filename);
+            filename = $"{filename}{fileExtension}";
+            var destFileInfo = _dataConnectionFactory.CreateWriteAppFileStream(folderType, filename);
             await WriteFileAsync(sourceFileStream, destFileInfo.stream);
+            return (filename: filename, location: destFileInfo.location, url: destFileInfo.url);
         }
     }
-}
+}   
