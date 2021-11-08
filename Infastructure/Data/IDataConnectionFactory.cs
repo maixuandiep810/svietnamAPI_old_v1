@@ -11,7 +11,7 @@ namespace svietnamAPI.Infastructure.Data
         void PrepareStaticFilesFolder();
 
         SqlConnection CreateSqlDbConnection();
-        (Stream stream, string location, string url) CreateWriteAppFileStream(int folderType, string filename);
+        (Stream stream, string location, string url) CreateWriteAppFileStream(PhysicalFolderType pscFolderType, string filename);
     
     }
 }

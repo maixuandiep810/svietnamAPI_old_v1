@@ -1,7 +1,7 @@
 namespace svietnamAPI.Dtos.ValueDtos
 {
-    public static class AppFileType
+    public enum AppFileType
     {
-        public const string Image = "Image";
+        Image
     }
 }

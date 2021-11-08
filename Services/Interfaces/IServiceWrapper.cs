@@ -11,6 +11,21 @@ namespace svietnamAPI.Services.Interfaces
     {
         ICategoryService CategoryService { get; }
         IAppFileService AppFileService { get; }
+        ILoginTokenService LoginTokenService { get; }
+        IEntityPermissionService EntityPermissionService { get; }
+        IUserService UserService { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
+        // { get; }
 
 
     }

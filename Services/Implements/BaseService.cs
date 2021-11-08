@@ -1,6 +1,7 @@
 using AutoMapper;
 using svietnamAPI.Repositories.Interfaces;
 using svietnamAPI.Services.Interfaces;
+using svietnamAPI.StartupConfiguration.AppSetting;
 
 namespace svietnamAPI.Services.Implements
 {

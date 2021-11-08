@@ -1,6 +1,6 @@
 using System;
 
-namespace svietnamAPI.Helper
+namespace svietnamAPI.Helper.DataHelper
 {
     public static class GuidHepler
     {

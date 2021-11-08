@@ -1,8 +1,8 @@
 using System;
 namespace svietnamAPI.Dtos.ValueDtos
 {
-    public static class PhysicalFolderType
+    public enum PhysicalFolderType
     {
-        public const int CategoryImage = 1;
+        CategoryImage
     }
 }

@@ -7,6 +7,6 @@ namespace svietnamAPI.Repositories.Interfaces.AppFile
 {
     public interface IAppFileDbRepository : IGenericDbRepository
     {
-        Task<int> CreateAppFileAsync(CreateAppFileDto createAppFile);
+        Task<int> Create1_Async(string query, AppFileCreateDto createAppFile);
     }
 }

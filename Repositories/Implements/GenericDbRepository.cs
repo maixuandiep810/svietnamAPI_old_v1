@@ -16,7 +16,7 @@ namespace svietnamAPI.Repositories.Implements
         }
 
         // use for buffered queries that return a type
-        protected async Task<T> WithConnection<T>(Func<IDbConnection, Task<T>> queryData)
+        protected async Task<TRead> WithConnection<TRead>(Func<IDbConnection, Task<TRead>> queryData)
         {
             await using (var dbConnection = _dataConnectionFactory.CreateSqlDbConnection())
             {
@@ -36,13 +36,13 @@ namespace svietnamAPI.Repositories.Implements
         }
 
         //use for non-buffered queries that return a type
-        protected async Task<TResult> WithConnection<TRead, TResult>(Func<IDbConnection, Task<TRead>> queryData, Func<TRead, Task<TResult>> processAfterQuery)
+        protected async Task<TAfterProcess> WithConnection<TRead, TAfterProcess>(Func<IDbConnection, Task<TRead>> queryData, Func<TRead, TAfterProcess> processAfterQuery)
         {
             await using (var dbConnection = _dataConnectionFactory.CreateSqlDbConnection())
             {
                 await dbConnection.OpenAsync();
                 var data = await queryData(dbConnection);
-                return await processAfterQuery(data);
+                return processAfterQuery(data);
             }
         }
     }

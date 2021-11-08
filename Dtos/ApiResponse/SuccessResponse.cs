@@ -1,6 +1,6 @@
 namespace svietnamAPI.Dtos.ApiResponse
 {
-    public class SuccessApi<T>
+    public class SuccessResponse<T>
     {
         public int Code { get; set; }
         public T Data { get; set; }

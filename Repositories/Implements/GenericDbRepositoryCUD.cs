@@ -16,7 +16,7 @@ namespace svietnamAPI.Repositories.Implements
         /// <param name="query"></param>
         /// <param name="queryParams"></param>
         /// <returns></returns>
-        public async Task<int> CreateEntityAsync(string query, object queryParams)
+        public async Task<int> Create1_Entity_Async(string query, object queryParams)
         {
             var insertedId = await WithConnection<int>(
                 async dbConnection =>
@@ -34,7 +34,7 @@ namespace svietnamAPI.Repositories.Implements
         /// <param name="query"></param>
         /// <param name="queryParams"></param>
         /// <returns></returns>
-        public async Task UpdateEntityAsync(string query, object queryParams)
+        public async Task Update1_Entity_Async(string query, object queryParams)
         {
             await WithConnection(
                 async dbConnection =>

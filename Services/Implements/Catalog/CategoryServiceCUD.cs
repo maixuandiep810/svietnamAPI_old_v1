@@ -7,6 +7,7 @@ using AutoMapper;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using svietnamAPI.Dtos.ValueDtos;
+using svietnamAPI.Repositories.Implements.Catalog;
 
 namespace svietnamAPI.Services.Implements.Catalog
 {
@@ -14,15 +15,15 @@ namespace svietnamAPI.Services.Implements.Catalog
     {
         public async Task<bool> UpdateCategoryBaseImageAsync(int categoryId, IFormFile formFile)
         {
-            var category = await _repositoryWrapper.CategoryDbRepo.GetCategoryByIdAsync(categoryId);
+            var category = await _repositoryWrapper.CategoryDbRepo.Get1_Basic_Async(CategoryDbQuery.Get1_ById_Basic, categoryId: categoryId);
             if (category == null)
                 return false;
-            var updateCategory = _mapper.Map<UpdateCategoryDto>(category);
+            var updateCategory = _mapper.Map<CategoryUpdateDto>(category);
             var appFileId = await _serviceWrapper.AppFileService.SaveAppFileAsync(formFile, AppFileType.Image, PhysicalFolderType.CategoryImage, true);
             if (appFileId == 0)
                 return false;
             updateCategory.BaseImageId = appFileId; 
-            await _repositoryWrapper.CategoryDbRepo.UpdateCategoyAsync(updateCategory);
+            await _repositoryWrapper.CategoryDbRepo.Update1_Async(CategoryDbQuery.Update1, updateCategory);
             return true;
         }
 

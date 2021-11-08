@@ -6,9 +6,9 @@ namespace svietnamAPI.Repositories.Interfaces
 {
     public interface IGenericDbRepository : IGenericRepository
     {
-        Task<IEnumerable<TEntity>> GetEntitiesAsync<TEntity>(string query, object queryParams);
-        Task<TEntity> GetEntityAsync<TEntity>(string query, object queryParams);
-        Task<int> CreateEntityAsync(string query, object queryParams);
-        Task UpdateEntityAsync(string query, object queryParams);
+        Task<IEnumerable<TEntity>> GetN_Entity_Async<TEntity>(string query, object queryParams);
+        Task<TEntity> Get1_Entity_Async<TEntity>(string query, object queryParams);
+        Task<int> Create1_Entity_Async(string query, object queryParams);
+        Task Update1_Entity_Async(string query, object queryParams);
     }
 }

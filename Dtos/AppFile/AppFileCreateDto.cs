@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 namespace svietnamAPI.Dtos.AppFile
 {
-    public class CreateAppFileDto
+    public class AppFileCreateDto
     {
         public string Filename { get; set; }
         public string Location { get; set; }

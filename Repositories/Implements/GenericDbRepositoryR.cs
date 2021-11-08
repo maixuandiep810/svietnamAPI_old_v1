@@ -17,7 +17,7 @@ namespace svietnamAPI.Repositories.Implements
         /// <param name="queryParams"></param>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public async Task<IEnumerable<TEntity>> GetEntitiesAsync<TEntity>(string query, object queryParams)
+        public async Task<IEnumerable<TEntity>> GetN_Entity_Async<TEntity>(string query, object queryParams)
         {
             var entities = await WithConnection<IEnumerable<TEntity>>(
                 async dbConnection =>
@@ -36,7 +36,7 @@ namespace svietnamAPI.Repositories.Implements
         /// <param name="queryParams"></param>
         /// <typeparam name="TEntity"></typeparam>
         /// <returns></returns>
-        public async Task<TEntity> GetEntityAsync<TEntity>(string query, object queryParams)
+        public async Task<TEntity> Get1_Entity_Async<TEntity>(string query, object queryParams)
         {
             var entity = await WithConnection<TEntity>(
                 async dbConnection =>

@@ -12,50 +12,58 @@ namespace svietnamAPI.Repositories.Implements.Catalog
 {
     public partial class CategoryDbRepository : GenericDbRepository, ICategoryDbRepository
     {
-        public CategoryDbRepository(IDataConnectionFactory dataConnectionFactory)
-        : base(dataConnectionFactory)
+        public CategoryDbRepository(IDataConnectionFactory dataConnectionFactory) : base(dataConnectionFactory)
         {
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
-        {
-            var categories = await GetEntitiesAsync<CategoryDto>(CategoryQuery.GetCategories, null);
-            return categories;
-        }
-
-        public async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async()
+        public async Task<IEnumerable<CategoryDto>> GetN_Basic_Async(string query, string slug = null)
         {
             var queryParams = new
             {
-                BaseImageType = AppFileType.Image,
-                ThumbnailImageType = AppFileType.Image
+                Slug = slug
             };
-            var categories = await GetCategories_Image_Async(CategoryQuery.GetCategories_Image, queryParams);
+            var categories = await GetN_Entity_Async<CategoryDto>(query, queryParams);
             return categories;
         }
 
-        public async Task<CategoryDto> GetCategoryByIdAsync(int categoryId)
+        public async Task<IEnumerable<CategoryDto>> GetN_AppFile_Async(string query, string slug = null)
         {
-            var category = await GetEntityAsync<CategoryDto>(CategoryQuery.GetCategoryById, new { CategoryId = categoryId });
-            return category;
+            var queryParams = new
+            {
+                BaseImageType = AppFileType.Image.ToString(),
+                ThumbnailImageType = AppFileType.Image.ToString(),
+                Slug = slug
+            };
+            var categories = await GetN_AppFile_Async(CategoryDbQuery.GetN_AppFile, queryParams);
+            return categories;
         }
 
-        public async Task<CategoryDto> GetCategoryById_Image_Async(int categoryId)
+        public async Task<CategoryDto> Get1_Basic_Async(string query, int? categoryId = null, string slug = null)
         {
             var queryParams = new
             {
                 CategoryId = categoryId,
-                BaseImageType = AppFileType.Image,
-                ThumbnailImageType = AppFileType.Image
+                Slug = slug
             };
-            var categories = await GetCategories_Image_Async(CategoryQuery.GetCategoryById_Image, queryParams);
-            if (categories == null)
-                return null;
-            var category = categories.FirstOrDefault();
+            var category = await Get1_Entity_Async<CategoryDto>(query, queryParams);
             return category;
         }
 
-        private async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async(string query, object queryParams)
+        public async Task<CategoryDto> Get1_AppFile_Async(string query, int? categoryId = null, string slug = null)
+        {
+            var queryParams = new
+            {
+                CategoryId = categoryId,
+                BaseImageType = AppFileType.Image.ToString(),
+                ThumbnailImageType = AppFileType.Image.ToString(),
+                Slug = slug
+            };
+            var categories = await GetN_AppFile_Async(query, queryParams);
+            var category = categories?.FirstOrDefault();
+            return category;
+        }
+
+        private async Task<IEnumerable<CategoryDto>> GetN_AppFile_Async(string query, object queryParams)
         {
             var categories = await WithConnection<IEnumerable<CategoryDto>>(
                 async dbConnection =>

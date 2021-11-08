@@ -3,7 +3,7 @@ using svietnamAPI.Dtos.AppFile;
 
 namespace svietnamAPI.Dtos.Catalog
 {
-    public class UpdateCategoryDto
+    public class CategoryUpdateDto
     {
         public int CategoryId { get; set; }
         public string Name { get; set; }

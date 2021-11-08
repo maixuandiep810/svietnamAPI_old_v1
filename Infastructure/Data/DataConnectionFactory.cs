@@ -27,11 +27,11 @@ namespace svietnamAPI.Infastructure.Data
             return connection;
         }
 
-        public (Stream stream, string location, string url) CreateWriteAppFileStream(int folderType, string filename)
+        public (Stream stream, string location, string url) CreateWriteAppFileStream(PhysicalFolderType pscFolderType, string filename)
         {
             string folderLocation = "";
             Uri folderUrl = null;
-            switch (folderType)
+            switch (pscFolderType)
             {
                 case PhysicalFolderType.CategoryImage:
                     folderLocation = _staticFileInfo.CategoryImageLocation;

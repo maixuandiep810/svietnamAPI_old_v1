@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace svietnamAPI.Helper
+namespace svietnamAPI.Helper.DataHelper
 {
     public static class RegexHelper
     {

@@ -2,7 +2,7 @@ using System;
 using System.IO;
 using System.Threading.Tasks;
 using svietnamAPI.Dtos.ValueDtos;
-using svietnamAPI.Helper;
+using svietnamAPI.Helper.DataHelper;
 using svietnamAPI.Infastructure.Data;
 using svietnamAPI.Repositories.Interfaces.PhysicalFile;
 
@@ -24,12 +24,12 @@ namespace svietnamAPI.Repositories.Implements.PhysicalFile
         }
 
 
-        public async Task<(string filename, string location, string url)> WriteAppFileAsync(int folderType, Stream sourceFileStream, string fileExtension, string filename)
+        public async Task<(string filename, string location, string url)> WriteAppFileAsync(PhysicalFolderType pscFolderType, Stream sourceFileStream, string fileExtension, string filename)
         {
             filename = $"{GuidHepler.GenerateGuid()}--{filename}";
             filename = RegexHelper.StandardizeFilename(filename);
             filename = $"{filename}{fileExtension}";
-            var destFileInfo = _dataConnectionFactory.CreateWriteAppFileStream(folderType, filename);
+            var destFileInfo = _dataConnectionFactory.CreateWriteAppFileStream(pscFolderType, filename);
             await WriteFileAsync(sourceFileStream, destFileInfo.stream);
             return (filename: filename, location: destFileInfo.location, url: destFileInfo.url);
         }

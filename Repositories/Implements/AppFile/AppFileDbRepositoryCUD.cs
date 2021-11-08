@@ -13,9 +13,9 @@ namespace svietnamAPI.Repositories.Implements.AppFile
 {
     public partial class AppFileDbRepository
     {
-        public async Task<int> CreateAppFileAsync(CreateAppFileDto createAppFile)
+        public async Task<int> Create1_Async(string query, AppFileCreateDto createAppFile)
         {
-            var insertedId = await CreateEntityAsync(AppFileQuery.CreateAppFile, createAppFile);
+            var insertedId = await Create1_Entity_Async(query, createAppFile);
             return insertedId;
         }
     }

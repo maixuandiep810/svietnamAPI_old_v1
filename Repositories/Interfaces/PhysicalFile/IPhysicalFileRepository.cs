@@ -7,7 +7,7 @@ namespace svietnamAPI.Repositories.Interfaces.PhysicalFile
     public interface IPhysicalFileRepository : IGenericRepository
     {
         Task WriteFileAsync(Stream sourceFileStream, Stream destFileStream);
-        Task<(string filename, string location, string url)> WriteAppFileAsync(int folderType, Stream sourceFileStream, string fileExtension, string filename);
+        Task<(string filename, string location, string url)> WriteAppFileAsync(PhysicalFolderType pscFolderType, Stream sourceFileStream, string fileExtension, string filename);
 
     }
 }

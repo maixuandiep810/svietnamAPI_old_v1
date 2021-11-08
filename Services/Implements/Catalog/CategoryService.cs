@@ -8,7 +8,7 @@ using System.Linq;
 using svietnamAPI.Repositories;
 using svietnamAPI.Repositories.Interfaces;
 using svietnamAPI.Services.Interfaces;
-
+using svietnamAPI.Repositories.Implements.Catalog;
 namespace svietnamAPI.Services.Implements.Catalog
 {
     public partial class CategoryService : BaseService, ICategoryService
@@ -18,27 +18,27 @@ namespace svietnamAPI.Services.Implements.Catalog
         {
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategoriesAsync()
+        public async Task<IEnumerable<CategoryDto>> GetN_Basic_Async()
         {
-            var categories = await _repositoryWrapper.CategoryDbRepo.GetCategoriesAsync();
+            var categories = await _repositoryWrapper.CategoryDbRepo.GetN_Basic_Async(CategoryDbQuery.GetN_Basic);
             return categories;
         }
 
-        public async Task<IEnumerable<CategoryDto>> GetCategories_Image_Async()
+        public async Task<IEnumerable<CategoryDto>> GetN_Image_Async()
         {
-            var categories = await _repositoryWrapper.CategoryDbRepo.GetCategories_Image_Async();
+            var categories = await _repositoryWrapper.CategoryDbRepo.GetN_AppFile_Async(CategoryDbQuery.GetN_AppFile);
             return categories;
         }
 
-        public async Task<CategoryDto> GetCategoryByIdAsync(int categoryId)
+        public async Task<CategoryDto> Get1_ById_Basic_Async(int categoryId)
         {
-            var category = await _repositoryWrapper.CategoryDbRepo.GetCategoryByIdAsync(categoryId);
+            var category = await _repositoryWrapper.CategoryDbRepo.Get1_Basic_Async(CategoryDbQuery.Get1_ById_Basic, categoryId: categoryId);
             return category;
         }
 
-        public async Task<CategoryDto> GetCategoryById_Image_Async(int categoryId)
+        public async Task<CategoryDto> Get1_ById_Image_Async(int categoryId)
         {
-            var category = await _repositoryWrapper.CategoryDbRepo.GetCategoryById_Image_Async(categoryId);
+            var category = await _repositoryWrapper.CategoryDbRepo.Get1_AppFile_Async(CategoryDbQuery.Get1_ById_AppFile, categoryId: categoryId);
             return category;
         }
 

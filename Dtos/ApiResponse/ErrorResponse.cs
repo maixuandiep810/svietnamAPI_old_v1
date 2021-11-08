@@ -1,6 +1,6 @@
 namespace svietnamAPI.Dtos.ApiResponse
 {
-    public class ErrorApi
+    public class ErrorResponse
     {
         public int Code { get; set; }
         public string Message { get; set; }
