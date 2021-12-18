@@ -1,0 +1,10 @@
+      "ImageProductFolderBaseLocation": "aaa",
+      "ImageProductFolderRelativeLocation": "",
+      "ImageAccountFolderBaseLocation": "aaa",
+      "ImageAccountFolderRelativeLocation": "",
+      "CsvCategoryFolderBaseLocation": "aaa",
+      "CsvCategoryFolderRelativeLocation": "",
+      "CsvProductFolderBaseLocation": "aaa",
+      "CsvProductFolderRelativeLocation": "",
+      "GeneralFileFolderBaseLocation": "aaa",
+      "GeneralFileFolderRelativeLocation": ""
